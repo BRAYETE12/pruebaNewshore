@@ -1,4 +1,5 @@
-﻿using BackPrueba.Infrastructure.Dtos;
+﻿using BackPrueba.Infrastructure.Data;
+using BackPrueba.Infrastructure.Dtos;
 using BackPrueba.Infrastructure.Services.Interfaces;
 using Newtonsoft.Json;
 
@@ -15,16 +16,14 @@ namespace BackPrueba.Infrastructure.Services
         }
 
 
-        public async Task<List<JourneyDto>> GetData(string apiUrl)
+        public async Task<List<JourneyModel>> GetData(string apiUrl)
         {
             HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
             response.EnsureSuccessStatusCode();
 
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            List<JourneyDto> list = JsonConvert.DeserializeObject<List<JourneyDto>>(responseContent);
-
-            return list;
+            return JsonConvert.DeserializeObject<List<JourneyModel>>(responseContent);
         }
 
     }

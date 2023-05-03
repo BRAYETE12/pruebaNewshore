@@ -11,19 +11,30 @@ namespace BackPrueba.Controllers
     public class JourneyController : ControllerBase
     {
         private readonly IJourneyManager _journeyManager;
+        private readonly ILogger<JourneyController> _logger;
 
-        public JourneyController(IJourneyManager journeyManager) 
+        public JourneyController(IJourneyManager journeyManager, ILogger<JourneyController> logger) 
         {
             _journeyManager = journeyManager;
+            _logger = logger;
         }
 
         // GET: api/<JourneyController>
         [HttpGet]
         public async Task<ActionResult> Get([FromQuery] JourneySearchDto journeyDto)
         {
-            Response Response = await _journeyManager.Search(journeyDto);
+            try {
 
-            return Ok(Response);
+                Response Response = await _journeyManager.Search(journeyDto);
+
+                return Ok(Response);
+            }
+            catch (Exception e) 
+            {
+                _logger.LogInformation("Error - ");
+                return null;
+            }
+           
         }
 
     }

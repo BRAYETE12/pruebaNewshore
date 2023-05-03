@@ -18,15 +18,15 @@ namespace BackPrueba.Infrastructure.Managers
         {
             Response response = new Response();
 
-            List<JourneyDto> flights = await _journeyRepositoty.FindFlights(journeyDto.Origin, journeyDto.Destination);
+            List<JourneyModel> flights = await _journeyRepositoty.FindFlights(journeyDto.Origin, journeyDto.Destination);
 
             if (flights == null)
             {
                 return notFound(response);
             }
 
-            Journey journey = new Journey() { Origin = journeyDto.Origin, Destination = journeyDto.Destination };
-            journey.Flights = flights.Select(x => new Flight(x) ).ToList();
+            JourneyDto journey = new JourneyDto() { Origin = journeyDto.Origin, Destination = journeyDto.Destination };
+            journey.Flights = flights.Select(x => new FlightDto(x) ).ToList();
             journey.Price = journey.Flights.Sum(x => x.Price);
 
 
@@ -39,7 +39,7 @@ namespace BackPrueba.Infrastructure.Managers
         public static Response notFound(Response response) 
         {
             response.StatusCode = StatusCodes.Status404NotFound;
-            response.Message = "La consulta no puede ser procesada";
+            response.Message = "The inquiry cannot be processed";
         
             return response;
         }

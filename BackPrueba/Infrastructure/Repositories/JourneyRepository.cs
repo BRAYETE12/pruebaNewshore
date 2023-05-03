@@ -13,13 +13,13 @@ namespace BackPrueba.Infrastructure.Repositories
             _dataJourney = dataJourney;
         }
 
-        public async Task<List<JourneyDto>> FindFlights(string Origin, string Destination)
+        public async Task<List<JourneyModel>> FindFlights(string Origin, string Destination)
         {
             var flights = await _dataJourney.GetData();
 
             var graph = BuildGraph(flights);
             var visited = new HashSet<string>();
-            var flightsPath = new List<JourneyDto>();
+            var flightsPath = new List<JourneyModel>();
             var found = DFS(Origin, Destination, visited, graph, flightsPath);
 
             if (!found) return null;
@@ -27,7 +27,7 @@ namespace BackPrueba.Infrastructure.Repositories
             return flightsPath;
         }
 
-        private bool DFS(string current, string Destination, HashSet<string> visited, Dictionary<string, List<JourneyDto>> graph, List<JourneyDto> flightsPath)
+        private bool DFS(string current, string Destination, HashSet<string> visited, Dictionary<string, List<JourneyModel>> graph, List<JourneyModel> flightsPath)
         {
             visited.Add(current);
 
@@ -50,15 +50,15 @@ namespace BackPrueba.Infrastructure.Repositories
             return false;
         }
 
-        private Dictionary<string, List<JourneyDto>> BuildGraph(List<JourneyDto> flights)
+        private Dictionary<string, List<JourneyModel>> BuildGraph(List<JourneyModel> flights)
         {
-            var graph = new Dictionary<string, List<JourneyDto>>();
+            var graph = new Dictionary<string, List<JourneyModel>>();
 
             foreach (var flight in flights)
             {
                 if (!graph.ContainsKey(flight.DepartureStation))
                 {
-                    graph[flight.DepartureStation] = new List<JourneyDto>();
+                    graph[flight.DepartureStation] = new List<JourneyModel>();
                 }
 
                 graph[flight.DepartureStation].Add(flight);

@@ -1,10 +1,10 @@
-﻿using BackPrueba.Infrastructure.Dtos;
+﻿using BackPrueba.Infrastructure.Data;
 
 namespace BackPrueba.Infrastructure.Services.Interfaces
 {
     public interface IJourneyService
     {
-        public Task<List<JourneyDto>> GetData(string apiUrl);
+        public Task<List<JourneyModel>> GetData(string apiUrl);
 
     }
 }

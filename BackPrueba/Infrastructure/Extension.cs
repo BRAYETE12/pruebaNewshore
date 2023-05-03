@@ -5,6 +5,7 @@ using BackPrueba.Infrastructure.Repositories;
 using BackPrueba.Infrastructure.Repositories.Interfaces;
 using BackPrueba.Infrastructure.Services;
 using BackPrueba.Infrastructure.Services.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace BackPrueba.Infrastructure
 {
@@ -23,6 +24,18 @@ namespace BackPrueba.Infrastructure
 
             //Managers 
             services.AddScoped<IJourneyManager, JourneyManager>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "Cors",
+                                  policy =>
+                                  {
+                                      policy.WithHeaders("content - type");
+                                      policy.AllowAnyHeader();
+                                      policy.AllowAnyOrigin();
+                                      policy.AllowAnyMethod();
+                                  });
+            });
 
         }
     }

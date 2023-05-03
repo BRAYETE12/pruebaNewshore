@@ -1,9 +1,9 @@
-﻿using BackPrueba.Infrastructure.Dtos;
+﻿using BackPrueba.Infrastructure.Data;
 
 namespace BackPrueba.Infrastructure.Repositories.Interfaces
 {
     public interface IJourneyRepository
     {
-        public Task<List<JourneyDto>> FindFlights(string Origin, string Destination);
+        public Task<List<JourneyModel>> FindFlights(string Origin, string Destination);
     }
 }

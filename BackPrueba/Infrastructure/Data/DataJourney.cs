@@ -8,7 +8,7 @@ namespace BackPrueba.Infrastructure.Data
     {
         private readonly IJourneyService _journeyService;
         private readonly string URL_Api;
-        private List<JourneyDto> Flights;
+        private List<JourneyModel> Flights;
 
         public DataJourney(IJourneyService journeyService, IConfiguration configuration) 
         {
@@ -16,7 +16,7 @@ namespace BackPrueba.Infrastructure.Data
             URL_Api = configuration.GetValue<string>("API_URL");
         }
 
-        public async Task<List<JourneyDto>> GetData() 
+        public async Task<List<JourneyModel>> GetData() 
         {
             if (Flights == null) 
                 Flights = await _journeyService.GetData(URL_Api);
