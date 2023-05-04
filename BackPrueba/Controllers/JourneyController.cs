@@ -21,7 +21,7 @@ namespace BackPrueba.Controllers
 
         // GET: api/<JourneyController>
         [HttpGet]
-        public async Task<ActionResult> Get([FromQuery] JourneySearchDto journeyDto)
+        public async Task<ActionResult?> Get([FromQuery] JourneySearchDto journeyDto)
         {
             try {
 
@@ -31,7 +31,7 @@ namespace BackPrueba.Controllers
             }
             catch (Exception e) 
             {
-                _logger.LogInformation("Error - ");
+                _logger.LogInformation("Error - " + e.Message );
                 return null;
             }
            
