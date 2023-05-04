@@ -3,6 +3,7 @@ import { JourneyService } from './Services/journey.service';
 import { JourneyDto } from './Models/JourneyDto';
 import { Journey } from './Models/Journey';
 import { ResponseDTO } from './Models/ResponseDTO';
+import { Money } from './Models/Money';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +13,16 @@ import { ResponseDTO } from './Models/ResponseDTO';
 export class AppComponent {
   
   loading: boolean = false;
-  journeyDto: JourneyDto = new JourneyDto();
-  journey: Journey = new Journey();
+  journeyDto: JourneyDto = { Origin:"", Destination:""};
+  journey!: Journey;
   message! : string;
+  selctMoney : Money;
+  money : Money[] = [ { Name : 'USD', TAX: 1 }, { Name: "COP", TAX : 4635.33 }, { Name: "EUR", TAX : 0.91 }, { Name: "GBP", TAX : 0.79 }  ];
 
-  constructor(private servi: JourneyService){}
+  constructor(private servi: JourneyService)
+  {
+    this.selctMoney = this.money[0];
+  }
 
   search()
   {
@@ -29,7 +35,8 @@ export class AppComponent {
     }
     
     this.loading = true;
-    this.journey.Flights = [];
+    if(this.journey) this.journey.Flights = [];
+    this.selctMoney = this.money[0];
     this.message = "";
  
     this.servi.get(this.journeyDto)

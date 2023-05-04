@@ -1,6 +1,4 @@
-export class Transport {
-    FlightCarrier!: string;
-    FlightNumber!: string;
-    
-    constructor(){}
+export interface Transport {
+    FlightCarrier: string;
+    FlightNumber: string;
 }

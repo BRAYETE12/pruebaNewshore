@@ -1,11 +1,10 @@
 import { Flight } from "./Flight";
 
-export class Journey{
+export interface Journey{
 
-    Origin!: string;
-    Destination!: string;
-    Price!: number;
-    Flights: Array<Flight> = [];
-    
-    constructor(){}
+    Origin: string;
+    Destination: string;
+    PriceView: number;
+    Price: number;
+    Flights: Array<Flight>;
 }

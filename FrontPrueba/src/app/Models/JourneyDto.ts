@@ -1,5 +1,4 @@
-export class JourneyDto{
-    public Origin!: string;
-    public Destination!: string;
-    
+export interface JourneyDto{
+    Origin: string;
+    Destination: string;
 }

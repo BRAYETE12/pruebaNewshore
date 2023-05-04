@@ -16,14 +16,23 @@ namespace BackPrueba.Infrastructure.Repositories
         public async Task<List<JourneyModel>> FindFlights(string Origin, string Destination)
         {
             var flights = await _dataJourney.GetData();
+            var directFlight = flights.Find(x => x.DepartureStation == Origin && x.ArrivalStation == Destination);
 
-            var graph = BuildGraph(flights);
-            var visited = new HashSet<string>();
             var flightsPath = new List<JourneyModel>();
-            var found = DFS(Origin, Destination, visited, graph, flightsPath);
 
-            if (!found) return null;
+            if (directFlight != null)
+            {
+                flightsPath.Add(directFlight);
+            }
+            else 
+            {
+                var graph = BuildGraph(flights);
+                var visited = new HashSet<string>();
+                var found = DFS(Origin, Destination, visited, graph, flightsPath);
 
+                if (!found) return null;
+            }
+            
             return flightsPath;
         }
 

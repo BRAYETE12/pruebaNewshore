@@ -18,3 +18,8 @@
 .mt-20{
     margin-top: -20px;
 }
+
+.borderLR{
+    border-left: 4px solid #198754;
+    border-right: 4px solid #198754;
+}
