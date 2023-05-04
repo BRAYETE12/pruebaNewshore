@@ -1,0 +1,108 @@
+<div class="container-fluid py-5">
+
+  <div class="row d-flex justify-content-center mt-4" >
+
+    <div class="col-12 col-md-8 fondo p-4" >
+      <h2>Welcome, where are we going to travel</h2>
+    </div>
+
+    <div class="col-12 col-md-8 mt-20" >
+      <div class="shadow rounded bg-white p-2 h-100 w-100 position-relative p-3">
+
+        <div class="row d-flex justify-content-center">
+
+          <div class="col-12 col-md-4">
+            <label for="Origin" class="form-label fw-bold">
+              <img src="/assets/img/icons8-airplane-take-off-80.png" height="30" > Origin
+            </label>
+            <input type="text" class="form-control form-control-lg" [(ngModel)]="journeyDto.Origin" maxlength="3" (keyup)="keyFuncOrigin($event)" name="Origin" id="Origin" placeholder="Enter origin" >
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="Destination" class="form-label fw-bold">
+              <img src="/assets/img/icons8-airplane-landing-80.png" height="30"> Destination
+            </label>
+            <input type="text" class="form-control form-control-lg" [(ngModel)]="journeyDto.Destination" maxlength="3" (keyup)="keyFuncDestination($event)" name="Destination" id="Destination" placeholder="Enter destination" >
+          </div>
+          <div class="col-12 col-md-3 d-grid gap-1">
+            <br>
+            <button type="button" class="btn btn-primary"  (click)="search()" >SEARCH</button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-12 col-md-8 mt-4" *ngIf="journey.Flights.length>0" >
+      <div class="shadow rounded bg-white p-2 h-100 w-100 position-relative">
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 col-md-3 text-center fw-bold">
+              Departure Station <br>
+              <img src="/assets/img/icons8-airplane-take-off-80.png" class="img">
+              {{journey.Origin}}
+          </div>
+          <div class="col-12 col-md-3 text-center fw-bold">
+            Arrival Station <br> 
+            <img src="/assets/img/icons8-airplane-landing-80.png" class="img">
+            {{journey.Destination}}
+          </div>
+          <div class="col-12 col-md-3 text-center">
+            <b>Price</b> <br> $ {{journey.Price}}
+          </div>
+        </div>
+      
+      </div>
+    </div>
+
+    <div class="col-12 col-md-8" *ngIf="journey.Flights.length>0">
+      <div class="row d-flex justify-content-center"  >
+
+        <div class="col-12 col-md-6 mt-2" *ngFor="let item of journey.Flights">
+          <div class="shadow rounded bg-white p-2 h-100 w-100 position-relative">
+            
+            <span class="bg-success price" >$ {{item.Price}}</span>
+            <table class="w-100 mt-4">
+              <tr class="text-center">
+                <th class="border-end" >Departure Station</th>
+                <th class="border-start" >Arrival Station</th>
+              </tr>
+              <tr class="text-center">
+                <td class="border-end border-bottom" >
+                  <img src="/assets/img/icons8-airplane-take-off-80.png" class="img">
+                  {{item.Origin}}
+                </td>
+                <td class="border-start border-bottom" >
+                  <img src="/assets/img/icons8-airplane-landing-80.png" class="img">
+                  {{item.Destination}}
+                </td>
+              </tr>
+              <tr class="text-center">
+                <th class="border-end border-top" >Flight Carrier</th>
+                <th class="border-start border-top" >light Numbern</th>
+              </tr>
+              <tr class="text-center">
+                <td class="border-end" >{{item.Transport.FlightCarrier}}</td>
+                <td class="border-start" >{{item.Transport.FlightNumber}}</td>
+              </tr>
+            </table>
+          
+          </div>
+        </div>
+      
+      </div>
+    </div>
+
+    <div class="col-12 col-md-8 mt-4" *ngIf="message" >
+      <div class="alert alert-primary" role="alert">{{message}}</div>
+    </div>
+
+  </div>
+
+  <div class="text-center mt-4" *ngIf="loading" >
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <br> Estamos cargando sus sueños
+  </div>
+
+</div>
